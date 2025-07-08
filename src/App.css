@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.editor-pane {
+  flex: 1;
+}
+
+.preview-pane {
+  flex: 1;
+  height: 80vh;
+  overflow: auto;
+  font-family: Courier, monospace;
+  background: #f9f9f9;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
