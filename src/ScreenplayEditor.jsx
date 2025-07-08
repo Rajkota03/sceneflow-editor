@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import fountain from 'fountain-js';
+import './styles/screenplay.css';
 
 export default function ScreenplayEditor() {
   const [script, setScript] = useState(`INT. BEDROOM - NIGHT\nA man stands quietly.`);
@@ -15,26 +16,14 @@ export default function ScreenplayEditor() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', fontFamily: 'Courier Prime, monospace' }}>
+    <div className="screenplay-editor" style={{ fontFamily: 'Courier Prime, monospace' }}>
       <textarea
         value={script}
         onChange={handleChange}
-        style={{
-          width: '50%',
-          padding: '1rem',
-          fontSize: '16px',
-          lineHeight: '1.5',
-          border: '1px solid #ccc',
-        }}
+        className="screenplay-input"
       />
       <div
-        style={{
-          width: '50%',
-          padding: '1rem',
-          borderLeft: '1px solid #ddd',
-          overflowY: 'auto',
-          background: '#fff',
-        }}
+        className="screenplay-preview"
         dangerouslySetInnerHTML={{ __html: parsedHtml }}
       />
     </div>
