@@ -1,0 +1,13 @@
+{
+  "name": "sceneflow-editor",
+  "version": "1.0.0",
+  "description": "Custom screenplay editor built using Fountain.js and pagination logic.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
