@@ -11,12 +11,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "fountain-js": "^0.6.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "fountain-js": "^0.6.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
-    "vite": "^4.0.0"
+    "vite": "^5.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
