@@ -1,0 +1,412 @@
+/* ═══════════════════════════════════════════════
+   Title Page Styles
+   ═══════════════════════════════════════════════ */
+
+.title-page-modal {
+    width: min(560px, 90vw);
+}
+
+/* ── Title Page Preview ── */
+.title-page-preview {
+    background: var(--bg-page);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 32px 24px;
+    text-align: center;
+    font-family: var(--font-screenplay);
+    font-size: 12pt;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    margin-bottom: var(--space-4);
+}
+
+.tp-preview-title {
+    font-size: 16pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.tp-preview-based {
+    font-size: 11pt;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.tp-preview-by {
+    font-size: 11pt;
+    color: var(--text-muted);
+    margin-top: 16px;
+}
+
+.tp-preview-author {
+    font-size: 12pt;
+    color: var(--text-primary);
+}
+
+.tp-preview-footer {
+    position: absolute;
+    bottom: 16px;
+    left: 24px;
+    text-align: left;
+    font-size: 10pt;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* ── Title Page in Editor ── */
+.title-page-display {
+    width: 8.5in;
+    height: 11in;
+    max-width: 100%;
+    background: var(--bg-page);
+    border-radius: 4px;
+    box-shadow: var(--shadow-page);
+    border: 1px solid var(--border-subtle);
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-screenplay);
+    font-size: 12pt;
+    color: var(--text-primary);
+    position: relative;
+    cursor: pointer;
+    transition: box-shadow var(--duration-normal) var(--ease-smooth);
+}
+
+.title-page-display:hover {
+    box-shadow: var(--shadow-xl);
+}
+
+.title-page-display .tp-title {
+    font-size: 24pt;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 24pt;
+    font-weight: normal;
+    letter-spacing: 0.03em;
+}
+
+.title-page-display .tp-by {
+    font-size: 12pt;
+    margin-bottom: 4pt;
+    color: var(--text-muted);
+}
+
+.title-page-display .tp-author {
+    font-size: 12pt;
+    margin-bottom: 8pt;
+}
+
+.title-page-display .tp-based {
+    font-size: 12pt;
+    margin-bottom: 24pt;
+    color: var(--text-secondary);
+}
+
+.title-page-display .tp-footer {
+    position: absolute;
+    bottom: 1in;
+    left: 1.5in;
+    text-align: left;
+    font-size: 12pt;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+.title-page-display .tp-edit-hint {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    font-family: var(--font-ui);
+    font-size: 10px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-smooth);
+}
+
+.title-page-display:hover .tp-edit-hint {
+    opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════
+   Find & Replace Styles
+   ═══════════════════════════════════════════════ */
+
+.find-replace-bar {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    z-index: var(--z-floating);
+    background: var(--bg-elevated);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 340px;
+    animation: menuSlideIn var(--duration-fast) var(--ease-smooth);
+}
+
+.find-replace-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.find-replace-input {
+    flex: 1;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+}
+
+.find-replace-input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.find-replace-btn {
+    height: 28px;
+    padding: 0 10px;
+    font-size: 11px;
+    font-weight: var(--weight-medium);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    transition: all var(--duration-fast) var(--ease-smooth);
+    white-space: nowrap;
+}
+
+.find-replace-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.find-replace-btn.active {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+}
+
+.find-replace-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 40px;
+    text-align: center;
+}
+
+.find-replace-close {
+    padding: 4px;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+}
+
+.find-replace-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+/* ── Highlight matches ── */
+.find-highlight {
+    background: rgba(251, 191, 36, 0.3);
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5);
+}
+
+.find-highlight-current {
+    background: rgba(251, 191, 36, 0.6);
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* ═══════════════════════════════════════════════
+   Scene Numbers
+   ═══════════════════════════════════════════════ */
+
+.scene-number-left,
+.scene-number-right {
+    position: absolute;
+    top: 0;
+    font-family: var(--font-screenplay);
+    font-size: 12pt;
+    font-weight: bold;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.scene-number-left {
+    left: -0.8in;
+    text-align: right;
+    width: 0.6in;
+}
+
+.scene-number-right {
+    right: -0.8in;
+    text-align: left;
+    width: 0.6in;
+}
+
+/* ═══════════════════════════════════════════════
+   Revision Mode
+   ═══════════════════════════════════════════════ */
+
+.revision-mark {
+    position: absolute;
+    right: -0.4in;
+    top: 0;
+    font-family: var(--font-screenplay);
+    font-size: 12pt;
+    pointer-events: none;
+}
+
+.revision-mark.blue {
+    color: #60a5fa;
+}
+
+.revision-mark.pink {
+    color: #f472b6;
+}
+
+.revision-mark.yellow {
+    color: #fbbf24;
+}
+
+.revision-mark.green {
+    color: #4ade80;
+}
+
+.revision-mark.orange {
+    color: #fb923c;
+}
+
+.revision-mode .editor-block.revised {
+    border-left: 2px solid currentColor;
+    padding-left: 6px;
+}
+
+.revision-color-picker {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.revision-color-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.revision-color-dot:hover {
+    transform: scale(1.2);
+}
+
+.revision-color-dot.active {
+    border-color: var(--text-primary);
+    transform: scale(1.2);
+}
+
+.revision-color-dot.blue {
+    background: #60a5fa;
+}
+
+.revision-color-dot.pink {
+    background: #f472b6;
+}
+
+.revision-color-dot.yellow {
+    background: #fbbf24;
+}
+
+.revision-color-dot.green {
+    background: #4ade80;
+}
+
+.revision-color-dot.orange {
+    background: #fb923c;
+}
+
+/* ═══════════════════════════════════════════════
+   Dual Dialogue
+   ═══════════════════════════════════════════════ */
+
+.dual-dialogue-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12pt;
+    margin-bottom: 12pt;
+}
+
+.dual-dialogue-side {
+    min-width: 0;
+}
+
+.dual-dialogue-side .block-character {
+    padding-left: 0.5in;
+}
+
+.dual-dialogue-side .block-dialogue {
+    padding-left: 0;
+    padding-right: 0.5in;
+}
+
+/* ═══════════════════════════════════════════════
+   MORE/CONT'D indicators
+   ═══════════════════════════════════════════════ */
+
+.more-indicator,
+.contd-indicator {
+    font-family: var(--font-screenplay);
+    font-size: 12pt;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 4px 0;
+    pointer-events: none;
+}
+
+.more-indicator {
+    margin-top: 4px;
+}
+
+.contd-indicator {
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+/* Print styles for new features */
+@media print {
+    .find-replace-bar {
+        display: none !important;
+    }
+
+    .tp-edit-hint {
+        display: none !important;
+    }
+
+    .title-page-display {
+        page-break-after: always;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+}

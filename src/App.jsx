@@ -1,11 +1,23 @@
-import ScreenplayEditor from './ScreenplayEditor';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import EditorWorkspace from './pages/EditorWorkspace';
+import useAuthStore from './stores/authStore';
 
 function App() {
+  const { initialize, user, loading } = useAuthStore();
+
+  // Initialize auth on mount
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
   return (
-    <div>
-      <h1>SceneFlow Editor</h1>
-      <ScreenplayEditor />
-    </div>
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/project/:id" element={<EditorWorkspace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

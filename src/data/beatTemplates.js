@@ -1,0 +1,58 @@
+const beatTemplates = {
+    'save-the-cat': {
+        name: 'Save the Cat',
+        description: 'Blake Snyder\'s 15-beat story structure',
+        beats: [
+            { id: 'opening-image', name: 'Opening Image', act: 1, description: 'A visual that represents the struggle & tone of the story. A "before" snapshot.' },
+            { id: 'theme-stated', name: 'Theme Stated', act: 1, description: 'What your movie is about—the thematic premise. Usually stated by a character other than the lead.' },
+            { id: 'setup', name: 'Set-Up', act: 1, description: 'Explore the hero\'s world. Introduce every main character. Plant setups that will pay off later.' },
+            { id: 'catalyst', name: 'Catalyst', act: 1, description: 'The moment that changes everything. An event that knocks the hero out of their status quo.' },
+            { id: 'debate', name: 'Debate', act: 1, description: 'The hero doubts the journey ahead. Should they go? Is it safe? This is the last chance to back out.' },
+            { id: 'break-into-two', name: 'Break into Two', act: 2, description: 'The hero makes a proactive choice and enters a new world or situation. Act Two begins.' },
+            { id: 'b-story', name: 'B Story', act: 2, description: 'A subplot begins—often the love story. Carries the thematic message of the film.' },
+            { id: 'fun-and-games', name: 'Fun and Games', act: 2, description: 'The promise of the premise. The trailer moments. The hero explores the new world.' },
+            { id: 'midpoint', name: 'Midpoint', act: 2, description: 'A false victory or false defeat. Stakes are raised. The fun and games are over.' },
+            { id: 'bad-guys-close-in', name: 'Bad Guys Close In', act: 2, description: 'External pressure increases, internal doubts grow. The team starts to unravel.' },
+            { id: 'all-is-lost', name: 'All Is Lost', act: 2, description: 'The opposite of the Midpoint. A "death" moment—mentor dies, all hope is lost.' },
+            { id: 'dark-night', name: 'Dark Night of the Soul', act: 2, description: 'The hero\'s darkest hour. They process "All Is Lost" and find clarity and strength.' },
+            { id: 'break-into-three', name: 'Break into Three', act: 3, description: 'Eureka! The solution is found. A and B stories cross. The hero has a new plan.' },
+            { id: 'finale', name: 'Finale', act: 3, description: 'The hero proves they\'ve changed. Applies lessons to defeat the bad guys. A new world is born.' },
+            { id: 'final-image', name: 'Final Image', act: 3, description: 'The opposite of the Opening Image. Proof that change has occurred. The "after" snapshot.' },
+        ],
+    },
+    'heros-journey': {
+        name: "Hero's Journey",
+        description: 'Joseph Campbell\'s 12-stage mythic structure',
+        beats: [
+            { id: 'ordinary-world', name: 'Ordinary World', act: 1, description: 'The hero\'s normal life before the adventure begins.' },
+            { id: 'call-to-adventure', name: 'Call to Adventure', act: 1, description: 'The hero is presented with a challenge or quest.' },
+            { id: 'refusal-of-call', name: 'Refusal of the Call', act: 1, description: 'The hero hesitates or refuses the challenge.' },
+            { id: 'meeting-mentor', name: 'Meeting the Mentor', act: 1, description: 'The hero encounters a guide who prepares them.' },
+            { id: 'crossing-threshold', name: 'Crossing the Threshold', act: 2, description: 'The hero commits to the adventure and enters the new world.' },
+            { id: 'tests-allies', name: 'Tests, Allies, Enemies', act: 2, description: 'The hero faces challenges and makes friends and foes.' },
+            { id: 'approach-cave', name: 'Approach to the Inmost Cave', act: 2, description: 'The hero nears the central crisis of the adventure.' },
+            { id: 'ordeal', name: 'The Ordeal', act: 2, description: 'The hero faces their greatest challenge.' },
+            { id: 'reward', name: 'Reward', act: 2, description: 'The hero claims the treasure or achieves the goal.' },
+            { id: 'road-back', name: 'The Road Back', act: 3, description: 'The hero begins the journey home with new knowledge.' },
+            { id: 'resurrection', name: 'Resurrection', act: 3, description: 'The final test—the hero must use everything learned.' },
+            { id: 'return-elixir', name: 'Return with the Elixir', act: 3, description: 'The hero returns home, transformed, with something to share.' },
+        ],
+    },
+    'three-act': {
+        name: '3-Act Structure',
+        description: 'Classic three-act storytelling framework',
+        beats: [
+            { id: 'setup-3', name: 'Setup', act: 1, description: 'Establish the world, characters, and the status quo.' },
+            { id: 'inciting-incident', name: 'Inciting Incident', act: 1, description: 'The event that sets the story in motion.' },
+            { id: 'first-turning-point', name: 'First Turning Point', act: 1, description: 'The hero commits and the story shifts direction.' },
+            { id: 'rising-action', name: 'Rising Action', act: 2, description: 'Complications build, stakes increase, conflict deepens.' },
+            { id: 'midpoint-3', name: 'Midpoint', act: 2, description: 'A pivot that changes the hero\'s approach or understanding.' },
+            { id: 'complications', name: 'Complications', act: 2, description: 'Things get worse. The antagonist gains strength.' },
+            { id: 'second-turning-point', name: 'Second Turning Point', act: 2, description: 'The crisis that forces the hero into the final act.' },
+            { id: 'climax', name: 'Climax', act: 3, description: 'The decisive confrontation. The main conflict reaches its peak.' },
+            { id: 'resolution', name: 'Resolution', act: 3, description: 'The aftermath. New equilibrium is established.' },
+        ],
+    },
+};
+
+export default beatTemplates;

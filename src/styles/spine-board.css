@@ -1,0 +1,85 @@
+/* Spine Board View (Kanban / Grid) */
+.spine-board-container {
+    height: 100%;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 40px;
+    background: var(--bg-surface);
+}
+
+.spine-board-container.columns-mode {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.spine-board-container.grid-mode {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-content: flex-start;
+    overflow-y: auto;
+}
+
+/* Columns */
+.board-column {
+    flex: 0 0 320px;
+    width: 320px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.board-column-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-column-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.column-count {
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+.board-column-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.empty-column-placeholder {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px 0;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+}
+
+/* Grid */
+.board-grid-item {
+    width: 280px;
+    height: 180px;
+    /* Fixed height for consistent grid */
+}

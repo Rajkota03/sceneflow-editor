@@ -1,0 +1,459 @@
+/* ═══════════════════════════════════════════════
+   Writing Sprint — Gamified Focus Timer
+   ═══════════════════════════════════════════════ */
+
+/* ── FAB (Floating Action Button) ── */
+.sprint-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow:
+        0 4px 16px rgba(124, 58, 237, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sprint-fab:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 8px 24px rgba(124, 58, 237, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.sprint-fab--active {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    animation: fabPulse 2s ease infinite;
+}
+
+@keyframes fabPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 4px 24px rgba(124, 58, 237, 0.5), 0 0 20px rgba(124, 58, 237, 0.2);
+    }
+}
+
+.sprint-fab-time {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+}
+
+/* ── Panel ── */
+.sprint-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 200;
+    width: 280px;
+    border-radius: 20px;
+    background: rgba(15, 15, 25, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    animation: panelIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+@keyframes panelIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.sprint-panel--complete {
+    border-color: rgba(34, 197, 94, 0.3);
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(34, 197, 94, 0.1);
+}
+
+/* ── Header ── */
+.sprint-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.sprint-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #f0f0f0;
+}
+
+.sprint-title svg {
+    color: #f97316;
+}
+
+.sprint-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+}
+
+.sprint-close:hover {
+    color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Timer ── */
+.sprint-timer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0 12px;
+}
+
+.sprint-timer svg {
+    filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.2));
+}
+
+.sprint-timer-display {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sprint-time {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f0f0f0;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+.sprint-time-label {
+    font-size: 0.65rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* ── Word Progress ── */
+.sprint-word-progress {
+    padding: 0 20px 12px;
+}
+
+.sprint-word-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: #aaa;
+    margin-bottom: 6px;
+}
+
+.sprint-word-label svg {
+    color: #7c3aed;
+}
+
+.sprint-word-track {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.sprint-word-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #7c3aed, #22c55e);
+    transition: width 0.5s ease;
+}
+
+/* ── Preset Selector ── */
+.sprint-preset-area {
+    padding: 0 20px 8px;
+    position: relative;
+}
+
+.sprint-preset-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #ccc;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.sprint-preset-toggle:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sprint-presets {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: calc(100% + 4px);
+    z-index: 10;
+    background: rgba(20, 20, 35, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    animation: presetsIn 0.15s ease-out;
+}
+
+@keyframes presetsIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sprint-preset {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    color: #ccc;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.sprint-preset:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.sprint-preset.active {
+    background: rgba(124, 58, 237, 0.15);
+    color: #a78bfa;
+}
+
+.sprint-preset-words {
+    color: #666;
+    font-size: 0.72rem;
+}
+
+/* ── Controls ── */
+.sprint-controls {
+    display: flex;
+    gap: 8px;
+    padding: 8px 20px 16px;
+}
+
+.sprint-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sprint-btn--primary {
+    flex: 1;
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: white;
+    box-shadow: 0 2px 12px rgba(124, 58, 237, 0.3);
+}
+
+.sprint-btn--primary:hover {
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+    transform: translateY(-1px);
+}
+
+.sprint-btn--secondary {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sprint-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+}
+
+.sprint-btn--ghost {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    color: #666;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.sprint-btn--ghost:hover {
+    color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Celebration ── */
+.sprint-celebration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 20px;
+    text-align: center;
+}
+
+.sprint-celebration-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e, #14b8a6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    animation: celebBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes celebBounce {
+    0% {
+        transform: scale(0);
+    }
+
+    60% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.sprint-celebration h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #f0f0f0;
+}
+
+.sprint-celebration p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: #aaa;
+}
+
+.sprint-goal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(34, 197, 94, 0.12);
+    color: #22c55e;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ── History ── */
+.sprint-history {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 12px 16px;
+}
+
+.sprint-history-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+}
+
+.sprint-history-total {
+    color: #a78bfa;
+    font-weight: 600;
+}
+
+.sprint-history-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 0.72rem;
+    color: #aaa;
+}
+
+.sprint-history-time {
+    color: #666;
+    font-variant-numeric: tabular-nums;
+}
+
+.sprint-history-trophy {
+    color: #eab308;
+    margin-left: auto;
+}
+
+/* ── Light mode ── */
+[data-theme="light"] .sprint-panel {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .sprint-time {
+    color: #1a1a2e;
+}
+
+[data-theme="light"] .sprint-title {
+    color: #1a1a2e;
+}
+
+[data-theme="light"] .sprint-celebration h3 {
+    color: #1a1a2e;
+}

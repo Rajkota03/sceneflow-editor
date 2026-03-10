@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════
+   Kleo AI Panel
+   ═══════════════════════════════════════════════ */
+
+.kleo-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.kleo-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #e85d8a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--text-inverse);
+}
+
+.kleo-header h4 {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--text-primary);
+}
+
+.kleo-header span {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+/* ── Suggestion Card ── */
+.kleo-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-bottom: var(--space-3);
+    transition: all var(--duration-fast) var(--ease-smooth);
+    animation: slideUp var(--duration-normal) var(--ease-smooth);
+}
+
+.kleo-card:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+}
+
+.kleo-card-label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--accent-text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
+}
+
+.kleo-card-text {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-3);
+}
+
+.kleo-card-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.kleo-btn-accept {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    background: var(--success-soft);
+    color: var(--success);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.kleo-btn-accept:hover {
+    background: var(--success);
+    color: var(--text-inverse);
+}
+
+.kleo-btn-reject {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    background: var(--glass-bg);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.kleo-btn-reject:hover {
+    background: var(--error-soft);
+    color: var(--error);
+}
+
+/* ── Empty / Placeholder ── */
+.kleo-placeholder {
+    text-align: center;
+    padding: var(--space-8) var(--space-4);
+    color: var(--text-muted);
+}
+
+.kleo-placeholder svg {
+    margin-bottom: var(--space-3);
+    opacity: 0.3;
+}
+
+.kleo-placeholder p {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+}
+
+/* ── Character tag card ── */
+.char-tag-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+}
+
+.char-tag-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-active);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.char-tag-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.char-tag-name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-screenplay);
+    text-transform: uppercase;
+}
+
+.char-tag-scene {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+.char-tag-count {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    padding: 2px 8px;
+    background: var(--glass-bg);
+    border-radius: var(--radius-full);
+}

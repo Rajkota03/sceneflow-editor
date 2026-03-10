@@ -1,0 +1,212 @@
+/* ═══════════════════════════════════════════════
+   Script Analytics — Premium Dashboard Styles
+   ═══════════════════════════════════════════════ */
+
+.analytics {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px 16px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.analytics-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary, #f0f0f0);
+}
+
+.analytics-header svg {
+    color: var(--accent-primary, #a78bfa);
+}
+
+/* ── Ring Charts Row ── */
+.analytics-rings {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+}
+
+.ring-chart {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-chart svg {
+    filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.15));
+}
+
+.ring-chart-label {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ring-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary, #f0f0f0);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+.ring-sub {
+    font-size: 0.6rem;
+    color: var(--text-muted, #888);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+/* ── Stat Row ── */
+.analytics-stat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.78rem;
+    color: var(--text-secondary, #ccc);
+}
+
+.analytics-stat-row svg {
+    color: var(--text-muted, #666);
+    flex-shrink: 0;
+}
+
+.stat-value {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--text-primary, #f0f0f0);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Sections ── */
+.analytics-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.analytics-section h4 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary, #ccc);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.analytics-section h4 svg {
+    color: var(--text-muted, #888);
+}
+
+/* ── Donut Chart ── */
+.donut-chart {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 0;
+}
+
+.donut-chart svg {
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(124, 58, 237, 0.1));
+}
+
+.donut-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.donut-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: var(--text-secondary, #ccc);
+}
+
+.donut-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.donut-pct {
+    margin-left: auto;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary, #f0f0f0);
+}
+
+/* ── Horizontal Bars ── */
+.analytics-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hbar {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.hbar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--text-secondary, #ccc);
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.hbar-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted, #888);
+}
+
+.hbar-track {
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+}
+
+.hbar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    min-width: 2px;
+}
+
+/* ── Scrollbar ── */
+.analytics::-webkit-scrollbar {
+    width: 4px;
+}
+
+.analytics::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.analytics::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+}

@@ -1,0 +1,202 @@
+/* ═══════════════════════════════════════════════
+   Editor Workspace — 3-Zone Layout
+   ═══════════════════════════════════════════════ */
+
+.editor-workspace {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-base);
+    overflow: hidden;
+}
+
+.editor-layout {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* ── Left Sidebar ── */
+.left-sidebar {
+    width: var(--sidebar-width);
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    transition: width var(--duration-normal) var(--ease-smooth),
+        opacity var(--duration-fast) var(--ease-smooth);
+    overflow: hidden;
+    flex-shrink: 0;
+    z-index: var(--z-sidebar);
+}
+
+.left-sidebar.collapsed {
+    width: 0;
+    border-right: none;
+}
+
+.sidebar-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-1);
+    gap: 1px;
+    flex-shrink: 0;
+}
+
+.sidebar-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-1);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--ease-smooth);
+    gap: var(--space-1);
+}
+
+.sidebar-tab:hover {
+    color: var(--text-secondary);
+    background: var(--bg-hover);
+}
+
+.sidebar-tab.active {
+    color: var(--accent-text);
+    background: var(--accent-soft);
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-3);
+}
+
+/* ── Center Canvas ── */
+.center-canvas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* ── Right Panel ── */
+.right-panel {
+    width: var(--right-panel-width);
+    background: var(--bg-surface);
+    border-left: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    transition: width var(--duration-normal) var(--ease-smooth),
+        opacity var(--duration-fast) var(--ease-smooth);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.right-panel.collapsed {
+    width: 0;
+    border-left: none;
+}
+
+.right-panel-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-1);
+    gap: 1px;
+    flex-shrink: 0;
+}
+
+.right-panel-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-1);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--ease-smooth);
+    white-space: nowrap;
+    gap: var(--space-1);
+}
+
+.right-panel-tab:hover {
+    color: var(--text-secondary);
+    background: var(--bg-hover);
+}
+
+.right-panel-tab.active {
+    color: var(--accent-text);
+    background: var(--accent-soft);
+}
+
+.right-panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-3);
+}
+
+/* ── Zen Mode ── */
+.editor-workspace.zen .left-sidebar,
+.editor-workspace.zen .right-panel {
+    width: 0;
+    border: none;
+    padding: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.editor-workspace.zen .topbar {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   Print Styles for PDF Export
+   ═══════════════════════════════════════════════ */
+@media print {
+
+    *,
+    *::before,
+    *::after {
+        box-shadow: none !important;
+    }
+
+    html,
+    body {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .editor-workspace {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .editor-workspace.zen .topbar,
+    .topbar,
+    .left-sidebar,
+    .right-panel,
+    .floating-toolbar,
+    .suggestion-dropdown,
+    .block-type-label,
+    .command-palette-overlay,
+    .modal-overlay,
+    .scene-drag-handle {
+        display: none !important;
+    }
+
+    .editor-layout {
+        display: block !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    .center-canvas {
+        overflow: visible !important;
+        height: auto !important;
+    }
+}

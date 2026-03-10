@@ -1,0 +1,112 @@
+.spine-timeline-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 40px;
+    background: var(--bg-surface);
+}
+
+.timeline-scroll-area {
+    height: 100%;
+    position: relative;
+    /* Track width is set inline based on totalTargetPages */
+}
+
+/* The horizontal line */
+.timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--border-color);
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+/* Page markers */
+.timeline-markers {
+    position: absolute;
+    top: calc(50% + 20px);
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+
+.page-marker {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.page-marker::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 12px;
+    background: var(--border-color);
+}
+
+/* Beat Nodes */
+.timeline-nodes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Let clicks pass to the draggable area if needed */
+}
+
+.timeline-beat-node {
+    position: absolute;
+    top: calc(50% - 140px);
+    height: 130px;
+    /* Leave gap to the center line */
+    pointer-events: auto;
+    /* Width/Left are set inline */
+}
+
+.timeline-beat-node.alt-position {
+    top: calc(50% + 10px);
+}
+
+/* Connector from the node down/up to the timeline */
+.node-connector {
+    position: absolute;
+    left: 0;
+    /* Align with the start of the beat */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 3px solid var(--bg-surface);
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.timeline-beat-node:not(.alt-position) .node-connector {
+    bottom: -15px;
+    /* touches center line */
+}
+
+.timeline-beat-node.alt-position .node-connector {
+    top: -15px;
+    /* touches center line */
+}
+
+.node-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 260px;
+    /* Fixed width for the card so it doesn't squish */
+    height: 100%;
+}

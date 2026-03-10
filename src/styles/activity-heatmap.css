@@ -1,0 +1,128 @@
+.activity-heatmap-container {
+    background: var(--bg-surface, rgba(20, 20, 25, 0.7));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(12px);
+    margin-top: 24px;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.heatmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.heatmap-header h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary, #fff);
+    margin: 0;
+}
+
+.heatmap-stats {
+    display: flex;
+    gap: 24px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary, #fff);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted, #888);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.fire-emoji {
+    font-size: 0.9rem;
+}
+
+/* ── The Graph container ── */
+.heatmap-graph-wrapper {
+    overflow-x: auto;
+    /* Scroll horizontally if it overflows on small screens */
+    padding-bottom: 8px;
+    /* space for scrollbar */
+}
+
+/* We want a grid of 53 columns (weeks) x 7 rows (days) */
+.heatmap-graph {
+    display: flex;
+    gap: 4px;
+}
+
+.heatmap-week {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Individual day blocks */
+.heatmap-day {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    cursor: default;
+}
+
+.heatmap-day:hover {
+    transform: scale(1.2);
+    z-index: 10;
+}
+
+/* Intensity levels (GitHub style mapping) */
+.heatmap-day.level-0 {
+    background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+}
+
+/* We'll use our accent color (primary, likely purple #a78bfa) for the intensity scale */
+.heatmap-day.level-1 {
+    background-color: rgba(167, 139, 250, 0.3);
+}
+
+.heatmap-day.level-2 {
+    background-color: rgba(167, 139, 250, 0.5);
+}
+
+.heatmap-day.level-3 {
+    background-color: rgba(167, 139, 250, 0.75);
+}
+
+.heatmap-day.level-4 {
+    background-color: rgba(167, 139, 250, 1);
+    box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+}
+
+/* ── Legend ── */
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+    justify-content: flex-end;
+    font-size: 0.75rem;
+    color: var(--text-muted, #888);
+}
+
+.heatmap-legend span {
+    margin: 0 4px;
+}
