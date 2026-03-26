@@ -1,0 +1,319 @@
+/* ═══════════════════════════════════════════════
+   Stash Panel — Retrievable Clipboard
+   ═══════════════════════════════════════════════ */
+
+.stash-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+}
+
+.sp-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.sp-title svg {
+    color: var(--accent);
+}
+
+.sp-clear-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(248, 113, 113, 0.15);
+    border-radius: var(--radius-md);
+    background: var(--error-soft);
+    color: var(--error);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+}
+
+.sp-clear-btn:hover {
+    background: rgba(248, 113, 113, 0.2);
+    border-color: rgba(248, 113, 113, 0.3);
+    transform: scale(1.05);
+}
+
+.sp-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* ── Item list ── */
+.sp-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 12px 12px;
+}
+
+.sp-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sp-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sp-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+}
+
+.sp-item {
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    background: var(--glass-bg);
+    transition: all var(--duration-fast);
+}
+
+.sp-item:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+}
+
+.sp-item-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.sp-type-badge {
+    padding: 1px 6px;
+    border-radius: var(--radius-full);
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.sp-item-time {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+}
+
+.sp-source-badge {
+    padding: 1px 5px;
+    border-radius: var(--radius-full);
+    background: var(--error-soft);
+    color: var(--error);
+    font-size: 0.55rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.sp-item-preview {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    padding: 6px 8px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-family: var(--font-screenplay);
+    word-break: break-word;
+    transition: background var(--duration-fast);
+}
+
+.sp-item-preview:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.sp-item-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.sp-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+    font-size: 0.62rem;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+}
+
+.sp-action-btn:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    color: var(--text-primary);
+}
+
+.sp-action-btn.copied {
+    background: var(--success-soft);
+    border-color: rgba(74, 222, 128, 0.3);
+    color: var(--success);
+}
+
+.sp-action-btn--insert {
+    border-color: rgba(232, 168, 56, 0.15);
+    color: var(--accent-text);
+}
+
+.sp-action-btn--insert:hover {
+    background: var(--accent-soft);
+    border-color: rgba(232, 168, 56, 0.3);
+}
+
+.sp-action-btn--insert:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.sp-action-btn--delete {
+    margin-left: auto;
+    border-color: rgba(248, 113, 113, 0.15);
+    color: var(--error);
+}
+
+.sp-action-btn--delete:hover {
+    background: var(--error-soft);
+    border-color: rgba(248, 113, 113, 0.3);
+}
+
+/* ── Empty state ── */
+.sp-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    gap: 8px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.sp-empty svg {
+    opacity: 0.3;
+}
+
+.sp-empty p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.sp-empty span {
+    font-size: 0.72rem;
+    opacity: 0.6;
+}
+
+/* ── Confirm Modal ── */
+.sp-confirm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spOverlayIn 0.15s ease;
+}
+
+@keyframes spOverlayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.sp-confirm {
+    width: 320px;
+    padding: 20px;
+    border-radius: var(--radius-xl);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-xl);
+    animation: spConfirmIn 0.2s var(--ease-spring);
+}
+
+@keyframes spConfirmIn {
+    from { opacity: 0; transform: scale(0.95) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.sp-confirm h4 {
+    margin: 0 0 8px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.sp-confirm p {
+    margin: 0 0 16px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.sp-confirm-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.sp-confirm-cancel {
+    padding: 8px 16px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+}
+
+.sp-confirm-cancel:hover {
+    background: var(--bg-hover);
+}
+
+.sp-confirm-clear {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-normal);
+}
+
+.sp-confirm-clear:hover {
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    transform: translateY(-1px);
+}

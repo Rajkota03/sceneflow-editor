@@ -1,0 +1,81 @@
+/* ═══════════════════════════════════════════════
+   Split Screen View
+   ═══════════════════════════════════════════════ */
+
+.split-screen-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.split-screen-pane {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.split-screen-pane .screenplay-canvas {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* ── Draggable Divider ── */
+.split-screen-divider {
+    flex-shrink: 0;
+    height: 6px;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    cursor: row-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+    z-index: 10;
+    position: relative;
+}
+
+.split-screen-divider:hover,
+.split-screen-divider.active {
+    background: var(--accent-soft);
+    border-color: rgba(232, 168, 56, 0.3);
+}
+
+.split-screen-divider-handle {
+    width: 40px;
+    height: 3px;
+    background: var(--text-muted);
+    border-radius: 2px;
+    opacity: 0.4;
+    transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.split-screen-divider:hover .split-screen-divider-handle,
+.split-screen-divider.active .split-screen-divider-handle {
+    opacity: 0.8;
+    background: var(--accent);
+}
+
+/* Prevent text selection during drag */
+.split-screen-container.dragging {
+    user-select: none;
+}
+
+/* Print: hide split screen divider */
+@media print {
+    .split-screen-divider {
+        display: none !important;
+    }
+
+    .split-screen-pane {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .split-screen-bottom {
+        display: none !important;
+    }
+}

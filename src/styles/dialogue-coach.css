@@ -1,0 +1,341 @@
+/* ===============================================
+   Dialogue Coach Panel
+   =============================================== */
+
+.dialogue-coach {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 16px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.coach-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.coach-header svg {
+    color: var(--accent);
+}
+
+/* ── Empty State ── */
+.coach-empty {
+    text-align: center;
+    padding: var(--space-8) var(--space-4);
+    color: var(--text-muted);
+}
+
+.coach-empty svg {
+    margin-bottom: var(--space-3);
+    opacity: 0.3;
+}
+
+.coach-empty p {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+}
+
+/* ── Overview Stats ── */
+.coach-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 10px 0;
+}
+
+.coach-overview-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 4px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+}
+
+.coach-ov-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.coach-ov-value.good {
+    color: #4ade80;
+}
+
+.coach-ov-value.warn {
+    color: #fbbf24;
+}
+
+.coach-ov-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+/* ── Character Cards ── */
+.coach-characters {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.coach-character-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.coach-character-card:hover {
+    border-color: var(--glass-border-hover);
+}
+
+.coach-character-card.expanded {
+    border-color: var(--accent-soft);
+}
+
+.coach-char-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    text-align: left;
+    transition: background var(--duration-fast) var(--ease-smooth);
+}
+
+.coach-char-header:hover {
+    background: var(--glass-bg-hover);
+}
+
+.coach-char-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-active);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.coach-char-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.coach-char-name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-screenplay);
+    text-transform: uppercase;
+}
+
+.coach-char-stats {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.coach-char-score {
+    flex-shrink: 0;
+}
+
+.score-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-variant-numeric: tabular-nums;
+}
+
+.score-badge.good {
+    background: rgba(74, 222, 128, 0.15);
+    color: #4ade80;
+}
+
+.score-badge.fair {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+}
+
+.score-badge.low {
+    background: rgba(248, 113, 113, 0.15);
+    color: #f87171;
+}
+
+/* ── Character Details ── */
+.coach-char-details {
+    padding: 0 12px 12px;
+    animation: coachSlideDown 0.2s var(--ease-smooth);
+}
+
+@keyframes coachSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Metric Bars ── */
+.coach-metrics-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.coach-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.coach-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coach-metric-label {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+}
+
+.coach-metric-value {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.coach-metric-track {
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+}
+
+.coach-metric-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    min-width: 2px;
+}
+
+/* ── Sections ── */
+.coach-section {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.coach-section h5 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 8px 0;
+}
+
+.coach-section h5 svg {
+    color: var(--text-muted);
+}
+
+/* ── Phrase Tags ── */
+.coach-phrases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.coach-phrase-tag {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    background: rgba(139, 92, 246, 0.12);
+    color: #a78bfa;
+    white-space: nowrap;
+}
+
+.coach-phrase-tag.filler {
+    background: rgba(251, 191, 36, 0.12);
+    color: #fbbf24;
+}
+
+.coach-phrase-tag em {
+    font-style: normal;
+    opacity: 0.6;
+    margin-left: 2px;
+}
+
+/* ── Tips ── */
+.coach-tips {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.coach-tips li {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+}
+
+.coach-tips li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
+}
+
+/* ── Scrollbar ── */
+.dialogue-coach::-webkit-scrollbar {
+    width: 4px;
+}
+
+.dialogue-coach::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dialogue-coach::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+}

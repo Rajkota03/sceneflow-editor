@@ -551,3 +551,94 @@
     height: 8px;
     border-radius: 50%;
 }
+
+/* ═══════════════════════════════════════════════
+   Phase 2b: Page & Scene Locking
+   ═══════════════════════════════════════════════ */
+
+.editor-block.locked {
+    opacity: 0.55;
+    cursor: not-allowed;
+    user-select: none;
+    position: relative;
+}
+
+.editor-block.locked::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 8px,
+        rgba(255, 255, 255, 0.015) 8px,
+        rgba(255, 255, 255, 0.015) 16px
+    );
+    pointer-events: none;
+    border-radius: 2px;
+}
+
+.block-lock-icon {
+    position: absolute;
+    left: -1.4in;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ── Block Context Menu ── */
+.block-context-menu {
+    position: fixed;
+    background: var(--bg-elevated);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 9999;
+    min-width: 180px;
+    padding: var(--space-1);
+    animation: slideDown var(--duration-fast) var(--ease-smooth);
+}
+
+.block-context-menu button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    text-align: left;
+    transition: background var(--duration-instant) var(--ease-smooth);
+}
+
+.block-context-menu button:hover {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+}
+
+/* Scene number positioning */
+.scene-number-left {
+    position: absolute;
+    left: -0.6in;
+    top: 0;
+    font-family: var(--font-screenplay);
+    font-size: 12pt;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.scene-number-right {
+    position: absolute;
+    right: -0.6in;
+    top: 0;
+    font-family: var(--font-screenplay);
+    font-size: 12pt;
+    color: var(--text-muted);
+    font-weight: bold;
+}

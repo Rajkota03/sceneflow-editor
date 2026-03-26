@@ -1,0 +1,55 @@
+/* ═══════════════════════════════════════════════
+   Resize Handle — Draggable Panel Divider
+   ═══════════════════════════════════════════════ */
+
+.resize-handle {
+    width: 6px;
+    flex-shrink: 0;
+    position: relative;
+    cursor: col-resize;
+    z-index: var(--z-sidebar);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resize-handle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -3px;
+    right: -3px;
+    /* Larger hit area for easier grabbing */
+}
+
+.resize-handle-line {
+    width: 2px;
+    height: 100%;
+    background: transparent;
+    border-radius: 1px;
+    transition: background var(--duration-fast) var(--ease-smooth),
+                box-shadow var(--duration-fast) var(--ease-smooth);
+}
+
+.resize-handle:hover .resize-handle-line {
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent-glow);
+}
+
+.resize-handle:active .resize-handle-line {
+    background: var(--accent-hover);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Left handle — sits between left sidebar and center */
+.resize-handle-left {
+    margin-left: -3px;
+    margin-right: -3px;
+}
+
+/* Right handle — sits between center and right panel */
+.resize-handle-right {
+    margin-left: -3px;
+    margin-right: -3px;
+}

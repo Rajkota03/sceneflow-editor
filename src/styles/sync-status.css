@@ -1,0 +1,141 @@
+/* ═══════════════════════════════════════════════
+   Sync Status Indicator
+   ═══════════════════════════════════════════════ */
+
+.sync-status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sync-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: var(--text-xs, 0.6875rem);
+    color: var(--text-muted, #56525c);
+    cursor: default;
+    transition: all var(--duration-fast, 150ms) var(--ease-smooth, ease);
+}
+
+.sync-indicator:hover {
+    background: var(--bg-hover, rgba(255, 255, 255, 0.04));
+    color: var(--text-secondary, #8a8690);
+}
+
+/* ── Dot ── */
+.sync-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background 300ms ease;
+}
+
+.sync-dot--synced {
+    background: var(--success, #4ade80);
+    box-shadow: 0 0 4px rgba(74, 222, 128, 0.4);
+}
+
+.sync-dot--syncing {
+    background: var(--warning, #fbbf24);
+    animation: sync-pulse 1s infinite;
+}
+
+.sync-dot--error {
+    background: var(--error, #f87171);
+    box-shadow: 0 0 4px rgba(248, 113, 113, 0.4);
+}
+
+.sync-dot--offline {
+    background: var(--text-muted, #56525c);
+    opacity: 0.6;
+}
+
+/* ── Label ── */
+.sync-label {
+    white-space: nowrap;
+    user-select: none;
+}
+
+/* ── Sync Now Button ── */
+.sync-now-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-sm, 4px);
+    color: var(--text-muted, #56525c);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all var(--duration-fast, 150ms) ease;
+}
+
+.sync-now-btn:hover:not(:disabled) {
+    background: var(--bg-hover, rgba(255, 255, 255, 0.04));
+    color: var(--text-secondary, #8a8690);
+}
+
+.sync-now-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ── Spin animation for icon ── */
+.sync-icon-spin {
+    animation: sync-spin 1s linear infinite;
+}
+
+@keyframes sync-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes sync-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* ── Tooltip ── */
+.sync-tooltip {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 100;
+    min-width: 180px;
+    padding: 8px 10px;
+    background: var(--bg-elevated, #1a1a24);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.06));
+    border-radius: var(--radius-md, 8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    animation: sync-tooltip-in 150ms ease;
+}
+
+.sync-tooltip-text {
+    font-size: var(--text-xs, 0.6875rem);
+    color: var(--text-secondary, #8a8690);
+    line-height: 1.4;
+}
+
+.sync-tooltip-time {
+    margin-top: 4px;
+    font-size: 0.625rem;
+    color: var(--text-muted, #56525c);
+}
+
+@keyframes sync-tooltip-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

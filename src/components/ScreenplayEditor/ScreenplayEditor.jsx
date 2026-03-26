@@ -1,10 +1,13 @@
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import { Lock, MessageSquare, Unlock } from 'lucide-react';
 import useEditorStore from '../../stores/editorStore';
 import useProjectStore from '../../stores/projectStore';
-import useUIStore from '../../stores/uiStore';
+import useUIStore, { REVISION_COLORS } from '../../stores/uiStore';
 import BeatTagMargin from '../BeatTagMargin';
+import CommentBubble from '../CommentBubble';
 import '../../styles/screenplay-editor.css';
 import '../../styles/title-page.css';
+import '../../styles/revision-colors.css';
 
 const BLOCK_TYPES = {
     'scene-heading': { label: 'Scene Heading', placeholder: 'INT./EXT. LOCATION - TIME' },
@@ -214,11 +217,13 @@ function FloatingToolbar({ blockType, blockRef, onInsertText, onChangeType }) {
 }
 
 // ── Editor Block Component ──
-export function EditorBlock({ block, projectId, isActive, onFocus, onToolbarContext, isChanged, contdMarker, tunedCharacter }) {
+export function EditorBlock({ block, projectId, isActive, onFocus, onToolbarContext, isChanged, revisionColor, contdMarker, tunedCharacter, isLocked, hasComments }) {
     const ref = useRef(null);
-    const { updateBlockText, updateBlockType, insertBlockAfter, deleteBlock } = useEditorStore();
+    const { updateBlockText, updateBlockType, insertBlockAfter, deleteBlock, toggleBlockLock, toggleSceneLock } = useEditorStore();
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [highlightedSuggestion, setHighlightedSuggestion] = useState(0);
+    const [showContextMenu, setShowContextMenu] = useState(false);
+    const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
 
     const typeInfo = BLOCK_TYPES[block.type];
 
@@ -329,6 +334,10 @@ export function EditorBlock({ block, projectId, isActive, onFocus, onToolbarCont
         }
 
         if (e.key === 'Backspace') {
+            if (isLocked) {
+                e.preventDefault();
+                return;
+            }
             const text = ref.current?.textContent || '';
             if (text === '') {
                 e.preventDefault();
@@ -398,21 +407,46 @@ export function EditorBlock({ block, projectId, isActive, onFocus, onToolbarCont
         // For simplicity, we add a class `tuned-out` which can be refined in CSS.
     }
 
+    const handleContextMenu = useCallback((e) => {
+        e.preventDefault();
+        setContextMenuPos({ x: e.clientX, y: e.clientY });
+        setShowContextMenu(true);
+    }, []);
+
+    // Close context menu on outside click
+    useEffect(() => {
+        if (!showContextMenu) return;
+        const close = () => setShowContextMenu(false);
+        window.addEventListener('click', close);
+        return () => window.removeEventListener('click', close);
+    }, [showContextMenu]);
+
     return (
         <div className="editor-block-wrapper" style={{ position: 'relative' }}>
+            {/* Lock icon indicator */}
+            {isLocked && (
+                <span className="block-lock-icon" title="This block is locked">
+                    <Lock size={12} />
+                </span>
+            )}
             <div
                 ref={ref}
-                className={`editor-block block-${block.type} ${isActive ? 'active' : ''} ${isChanged ? 'revised-block' : ''} ${isTunedOut ? 'tuned-out' : ''}`}
-                contentEditable
+                className={`editor-block block-${block.type} ${isActive ? 'active' : ''} ${isChanged ? `revised-block revision-highlight--${revisionColor || 'blue'}` : ''} ${isTunedOut ? 'tuned-out' : ''} ${isLocked ? 'locked' : ''}`}
+                contentEditable={!isLocked}
                 suppressContentEditableWarning
                 data-placeholder={typeInfo.placeholder}
                 data-block-id={block.id}
-                onInput={handleInput}
-                onKeyDown={handleKeyDown}
+                onInput={isLocked ? undefined : handleInput}
+                onKeyDown={isLocked ? (e) => { if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown' && e.key !== 'Tab') e.preventDefault(); } : handleKeyDown}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                spellCheck={true}
+                onContextMenu={handleContextMenu}
+                spellCheck={!isLocked}
             />
+            {/* Revision asterisk marker */}
+            {isChanged && revisionColor && (
+                <span className={`revision-asterisk revision-asterisk--${revisionColor}`}>*</span>
+            )}
             {contdMarker && block.type === 'character' && (
                 <span className="contd-marker-character"> {contdMarker}</span>
             )}
@@ -427,6 +461,8 @@ export function EditorBlock({ block, projectId, isActive, onFocus, onToolbarCont
             {block.type === 'scene-heading' && (
                 <BeatTagMargin projectId={projectId} sceneId={block.id} />
             )}
+            {/* Comment bubble */}
+            <CommentBubble projectId={projectId} blockId={block.id} />
             {showSuggestions && currentSuggestions.length > 0 && isActive && (
                 <div className="suggestion-dropdown">
                     {currentSuggestions.map((s, i) => (
@@ -438,6 +474,52 @@ export function EditorBlock({ block, projectId, isActive, onFocus, onToolbarCont
                             {s}
                         </button>
                     ))}
+                </div>
+            )}
+            {/* Context Menu for Lock Toggle */}
+            {showContextMenu && (
+                <div
+                    className="block-context-menu"
+                    style={{ top: contextMenuPos.y, left: contextMenuPos.x }}
+                >
+                    <button
+                        onMouseDown={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleBlockLock(projectId, block.id);
+                            setShowContextMenu(false);
+                        }}
+                    >
+                        {isLocked ? <Unlock size={13} /> : <Lock size={13} />}
+                        <span>{isLocked ? 'Unlock Block' : 'Lock Block'}</span>
+                    </button>
+                    {block.type === 'scene-heading' && (
+                        <button
+                            onMouseDown={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleSceneLock(projectId, block.id);
+                                setShowContextMenu(false);
+                            }}
+                        >
+                            {useEditorStore.getState().isSceneLocked(projectId, block.id) ? <Unlock size={13} /> : <Lock size={13} />}
+                            <span>{useEditorStore.getState().isSceneLocked(projectId, block.id) ? 'Unlock Scene' : 'Lock Scene'}</span>
+                        </button>
+                    )}
+                    <button
+                        onMouseDown={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const text = window.prompt('Add a comment:');
+                            if (text) {
+                                useEditorStore.getState().addComment(projectId, block.id, text);
+                            }
+                            setShowContextMenu(false);
+                        }}
+                    >
+                        <MessageSquare size={13} />
+                        <span>Add Comment</span>
+                    </button>
                 </div>
             )}
         </div>
@@ -453,8 +535,10 @@ function isBlockChanged(block, latestSnapshot) {
 
 // ── Main Screenplay Editor ──
 export default function ScreenplayEditor({ projectId }) {
-    const { getBlocks, setActiveBlock, activeBlockId, insertBlockAfter, updateBlockType } = useEditorStore();
-    const { focusMode, showSceneNumbers, showTitlePage, readThroughMode, revisionMode, typewriterMode, dialogueTunerCharacter } = useUIStore();
+    const { getBlocks, setActiveBlock, activeBlockId, insertBlockAfter, updateBlockType, isBlockLocked } = useEditorStore();
+    const { focusMode, showSceneNumbers, showTitlePage, readThroughMode, revisionMode, revisionColor, typewriterMode, dialogueTunerCharacter } = useUIStore();
+    const lockedBlocks = useEditorStore((s) => s._lockedBlocks[projectId] || []);
+    const allComments = useEditorStore((s) => s._comments[projectId] || {});
     const { setTitlePageModalOpen } = useUIStore();
     const project = useProjectStore((s) => s.projects.find((p) => p.id === projectId));
     const blocks = getBlocks(projectId);
@@ -479,36 +563,85 @@ export default function ScreenplayEditor({ projectId }) {
     }, [blocks]);
 
     // Compute CONT'D and MORE markers
+    // CONT'D: same character speaks again after non-dialogue intervening blocks (action, etc.)
+    // (MORE): dialogue split across a page break, with character (CONT'D) at top of next page
     const contdMarkers = useMemo(() => {
         const map = {};
-        let lastChar = null;
 
-        pages.forEach((pageBlocks, pageIndex) => {
-            pageBlocks.forEach((block, idx) => {
-                if (block.type === 'character') {
-                    const charName = block.text.trim().toUpperCase();
-                    // Character regex to strip out existing (V.O.) etc
-                    const baseChar = charName.replace(/\s*\(.*\)\s*/, '').trim();
-                    if (baseChar && baseChar === lastChar) {
-                        map[block.id] = "(CONT'D)";
-                    } else if (baseChar) {
-                        lastChar = baseChar;
-                    }
-                } else if (block.type === 'scene-heading' || block.type === 'transition') {
-                    lastChar = null; // reset speaking character on new scene or transition
-                }
+        // Helper: strip ALL parenthetical extensions for base character name comparison
+        // "JOHN (V.O.)" -> "JOHN", "MARY (CONT'D)" -> "MARY", "BOB (O.S.) (CONT'D)" -> "BOB"
+        const getBaseCharName = (text) => {
+            return (text || '').trim().toUpperCase().replace(/\s*\([^)]*\)/g, '').trim();
+        };
 
-                // (MORE) marker at bottom of page
-                if (block.type === 'dialogue' && idx === pageBlocks.length - 1) {
-                    const nextPage = pages[pageIndex + 1];
-                    if (nextPage && nextPage[0] && (nextPage[0].type === 'dialogue' || nextPage[0].type === 'character')) {
-                        map[block.id] = "(MORE)";
-                    }
+        // Pass 1: Compute CONT'D markers across ALL blocks (not per-page)
+        let lastSpeaker = null;
+        let hadInterveningNonDialogue = false;
+
+        blocks.forEach((block) => {
+            if (block.type === 'character') {
+                const baseName = getBaseCharName(block.text);
+                if (baseName && baseName === lastSpeaker && hadInterveningNonDialogue) {
+                    map[block.id] = "(CONT'D)";
                 }
-            });
+                lastSpeaker = baseName;
+                hadInterveningNonDialogue = false;
+            } else if (block.type === 'dialogue' || block.type === 'parenthetical') {
+                // Still part of the current speaker's block; do not reset
+            } else if (block.type === 'scene-heading' || block.type === 'transition') {
+                // New scene or transition resets speaker tracking entirely
+                lastSpeaker = null;
+                hadInterveningNonDialogue = false;
+            } else {
+                // Action or other non-dialogue block: mark as intervening
+                if (lastSpeaker) {
+                    hadInterveningNonDialogue = true;
+                }
+            }
         });
+
+        // Pass 2: Compute (MORE) markers for dialogue split across page breaks
+        pages.forEach((pageBlocks, pageIndex) => {
+            if (pageIndex >= pages.length - 1) return; // No next page
+            const nextPage = pages[pageIndex + 1];
+            if (!nextPage || nextPage.length === 0) return;
+
+            const lastBlock = pageBlocks[pageBlocks.length - 1];
+            const nextBlock = nextPage[0];
+
+            // (MORE) at bottom of page if the last block is dialogue/parenthetical
+            // and the next page continues with dialogue/parenthetical for the same character
+            if (
+                (lastBlock.type === 'dialogue' || lastBlock.type === 'parenthetical') &&
+                (nextBlock.type === 'dialogue' || nextBlock.type === 'parenthetical')
+            ) {
+                map[lastBlock.id] = "(MORE)";
+                // The character name with (CONT'D) at top of next page
+                // is handled visually by checking the first block of each page
+            }
+
+            // Also handle: last block is dialogue and next page starts with same character
+            if (
+                lastBlock.type === 'dialogue' &&
+                nextBlock.type === 'character'
+            ) {
+                // Find the speaker for the dialogue at end of current page
+                let speaker = null;
+                for (let i = pageBlocks.length - 1; i >= 0; i--) {
+                    if (pageBlocks[i].type === 'character') {
+                        speaker = getBaseCharName(pageBlocks[i].text);
+                        break;
+                    }
+                }
+                const nextSpeaker = getBaseCharName(nextBlock.text);
+                if (speaker && speaker === nextSpeaker) {
+                    map[lastBlock.id] = "(MORE)";
+                }
+            }
+        });
+
         return map;
-    }, [pages]);
+    }, [blocks, pages]);
 
     // Read-Through mode auto-scroll
     useEffect(() => {
@@ -574,7 +707,15 @@ export default function ScreenplayEditor({ projectId }) {
             const newText = currentText.slice(0, offset) + text + currentText.slice(offset);
             activeEl.textContent = newText;
             useEditorStore.getState().updateBlockText(projectId, activeBlockId, newText);
-            placeCaretAtEnd(activeEl);
+            // Place cursor right after the inserted text
+            const newOffset = offset + text.length;
+            const range = document.createRange();
+            const sel2 = window.getSelection();
+            const textNode = activeEl.firstChild || activeEl;
+            range.setStart(textNode, Math.min(newOffset, textNode.textContent.length));
+            range.collapse(true);
+            sel2.removeAllRanges();
+            sel2.addRange(range);
         }
     }, [activeBlockId, projectId]);
 
@@ -635,8 +776,11 @@ export default function ScreenplayEditor({ projectId }) {
                                         onFocus={handleBlockFocus}
                                         onToolbarContext={handleToolbarContext}
                                         isChanged={revisionMode && isBlockChanged(block, latestSnapshot)}
+                                        revisionColor={revisionColor}
                                         contdMarker={contdMarkers[block.id]}
                                         tunedCharacter={dialogueTunerCharacter}
+                                        isLocked={lockedBlocks.includes(block.id)}
+                                        hasComments={!!(allComments[block.id] && allComments[block.id].length > 0)}
                                     />
                                 </div>
                             ))}

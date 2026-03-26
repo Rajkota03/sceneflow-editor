@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════════
+   Collaborator Cursors & Avatars
+   ═══════════════════════════════════════════════ */
+
+/* ── Block-level cursor indicator ── */
+.collab-block-indicators {
+    position: absolute;
+    left: -4px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.collab-cursor-indicator {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    animation: collab-cursor-in 200ms ease;
+}
+
+.collab-cursor-bar {
+    width: 3px;
+    height: 100%;
+    min-height: 20px;
+    border-radius: 2px;
+    animation: collab-bar-pulse 2s ease-in-out infinite;
+}
+
+.collab-cursor-label {
+    position: absolute;
+    left: 6px;
+    top: -2px;
+    padding: 1px 6px;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    font-family: var(--font-ui, 'Inter', sans-serif);
+    color: #fff;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    animation: collab-label-in 200ms ease;
+}
+
+@keyframes collab-cursor-in {
+    from {
+        opacity: 0;
+        transform: translateX(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes collab-bar-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes collab-label-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Cursor flag (overlay variant) ── */
+.collab-cursors-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.collab-cursor-flag {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2px;
+}
+
+/* ── Avatar Stack (TopBar) ── */
+.collab-avatars {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: default;
+}
+
+.collab-avatar-stack {
+    display: flex;
+    align-items: center;
+}
+
+.collab-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: #fff;
+    border: 2px solid var(--bg-surface, #13131a);
+    margin-left: -6px;
+    transition: transform 150ms ease;
+}
+
+.collab-avatar:first-child {
+    margin-left: 0;
+}
+
+.collab-avatar:hover {
+    transform: scale(1.15);
+    z-index: 2;
+}
+
+.collab-avatar--overflow {
+    background: var(--bg-elevated, #1a1a24);
+    color: var(--text-muted, #56525c);
+    font-size: 0.5625rem;
+}
+
+.collab-count {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: var(--text-xs, 0.6875rem);
+    color: var(--text-muted, #56525c);
+}
+
+/* ── Dropdown ── */
+.collab-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 100;
+    min-width: 180px;
+    padding: 8px 0;
+    background: var(--bg-elevated, #1a1a24);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.06));
+    border-radius: var(--radius-md, 8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    animation: collab-dropdown-in 150ms ease;
+}
+
+.collab-dropdown-title {
+    padding: 4px 12px 8px;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--text-muted, #56525c);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.06));
+    margin-bottom: 4px;
+}
+
+.collab-dropdown-self,
+.collab-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    font-size: var(--text-xs, 0.6875rem);
+    color: var(--text-secondary, #8a8690);
+}
+
+.collab-dropdown-self {
+    color: var(--text-primary, #f0ece4);
+}
+
+.collab-dropdown-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.collab-dropdown-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.collab-dropdown-status {
+    font-size: 0.5625rem;
+    color: var(--success, #4ade80);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+@keyframes collab-dropdown-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

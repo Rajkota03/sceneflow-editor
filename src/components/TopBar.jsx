@@ -18,11 +18,16 @@ import {
     AlignVerticalSpaceAround,
     Film,
     Layout,
+    SplitSquareVertical,
+    Share2,
 } from 'lucide-react';
 import useProjectStore from '../stores/projectStore';
 import useEditorStore from '../stores/editorStore';
 import useUIStore from '../stores/uiStore';
 import MenuBar from './MenuBar';
+import SyncStatus from './SyncStatus';
+import ShareDialog from './ShareDialog';
+import { CollabAvatars } from './CollaboratorCursors';
 import '../styles/topbar.css';
 
 export default function TopBar({ projectId }) {
@@ -56,10 +61,12 @@ export default function TopBar({ projectId }) {
         rightPanelOpen, toggleRightPanel,
         setCommandPaletteOpen,
         globalTab, setGlobalTab,
+        splitScreenMode, toggleSplitScreen,
     } = useUIStore();
 
     const [title, setTitle] = useState(project?.title || '');
     const [saved, setSaved] = useState(true);
+    const [shareOpen, setShareOpen] = useState(false);
 
     useEffect(() => {
         setTitle(project?.title || '');
@@ -126,9 +133,19 @@ export default function TopBar({ projectId }) {
                     <span className={`save-dot ${saved ? '' : 'saving'}`} />
                     <span>{saved ? 'Saved' : 'Saving...'}</span>
                 </div>
+                <SyncStatus projectId={projectId} />
+                <CollabAvatars />
             </div>
 
             <div className="topbar-right">
+                <button
+                    className="btn-icon"
+                    onClick={() => setShareOpen(true)}
+                    title="Share project"
+                >
+                    <Share2 size={16} />
+                </button>
+                <div className="topbar-divider" />
                 <span className="word-count">
                     <FileText size={11} style={{ marginRight: 3, opacity: 0.5 }} />
                     {pageCount} pg
@@ -167,6 +184,14 @@ export default function TopBar({ projectId }) {
                 >
                     <AlignVerticalSpaceAround size={16} />
                 </button>
+                <button
+                    className="btn-icon"
+                    onClick={toggleSplitScreen}
+                    title="Split Screen View"
+                    style={splitScreenMode ? { color: 'var(--accent-primary, #a78bfa)' } : {}}
+                >
+                    <SplitSquareVertical size={16} />
+                </button>
                 <button className="btn-icon" onClick={toggleZenMode} title="Zen mode">
                     {zenMode ? <Minimize size={16} /> : <Maximize size={16} />}
                 </button>
@@ -184,6 +209,13 @@ export default function TopBar({ projectId }) {
                     {rightPanelOpen ? <PanelRightClose size={16} /> : <PanelRight size={16} />}
                 </button>
             </div>
+
+            <ShareDialog
+                projectId={projectId}
+                projectTitle={project?.title}
+                isOpen={shareOpen}
+                onClose={() => setShareOpen(false)}
+            />
         </div>
     );
 }

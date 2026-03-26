@@ -8,6 +8,7 @@ import {
     Sparkles, BarChart3, Users, BookOpen,
     Command, Hash, MessageSquare, Clapperboard,
     ChevronRight, ArrowLeft, BookMarked, Paintbrush, ListOrdered,
+    Shield,
 } from 'lucide-react';
 import useEditorStore from '../stores/editorStore';
 import useUIStore from '../stores/uiStore';
@@ -28,7 +29,7 @@ function useMenuItems(projectId, navigate) {
     const handleImport = useCallback(() => {
         const input = document.createElement('input');
         input.type = 'file';
-        input.accept = '.fdx,.fountain,.txt,.spmd';
+        input.accept = '.fdx,.fountain,.txt,.spmd,.pdf';
         input.onchange = async (e) => {
             const file = e.target.files?.[0];
             if (!file) return;
@@ -62,7 +63,7 @@ function useMenuItems(projectId, navigate) {
                     icon: FolderOpen,
                     shortcut: '⌘O',
                     action: handleImport,
-                    badge: 'FDX · Fountain · TXT',
+                    badge: 'FDX · Fountain · TXT · PDF',
                 },
                 { separator: true },
                 {
@@ -73,6 +74,13 @@ function useMenuItems(projectId, navigate) {
                         titlePage: project?.titlePage,
                         showSceneNumbers: ui.showSceneNumbers,
                     }),
+                },
+                {
+                    label: 'Export Watermarked PDF…',
+                    icon: Shield,
+                    shortcut: null,
+                    description: 'Leak-proof copy with recipient watermark',
+                    action: () => ui.setWatermarkDialogOpen(true),
                 },
                 {
                     label: 'Export as FDX',
@@ -199,6 +207,14 @@ function useMenuItems(projectId, navigate) {
                     icon: Users,
                     action: () => {
                         ui.setSidebarTab('characters');
+                    },
+                },
+                {
+                    label: 'Dialogue Analysis',
+                    icon: BarChart3,
+                    description: 'Character dialogue distribution',
+                    action: () => {
+                        ui.setRightPanelTab('diversity');
                     },
                 },
                 {
@@ -341,7 +357,7 @@ export default function MenuBar({ projectId }) {
                 e.preventDefault();
                 const input = document.createElement('input');
                 input.type = 'file';
-                input.accept = '.fdx,.fountain,.txt,.spmd';
+                input.accept = '.fdx,.fountain,.txt,.spmd,.pdf';
                 input.onchange = async (ev) => {
                     const file = ev.target.files?.[0];
                     if (!file) return;

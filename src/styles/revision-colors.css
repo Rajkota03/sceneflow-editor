@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════
+   Revision Colors — Color Picker & Markers
+   ═══════════════════════════════════════════════ */
+
+.revision-color-picker {
+    padding: 12px 16px;
+}
+
+.rcp-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.rcp-header svg {
+    color: var(--accent);
+}
+
+.rcp-description {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+/* ── Swatches ── */
+.rcp-swatches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.rcp-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    background: var(--glass-bg);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.rcp-swatch:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    transform: translateY(-1px);
+}
+
+.rcp-swatch.active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.rcp-swatch-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    transition: transform var(--duration-fast);
+}
+
+.rcp-swatch.active .rcp-swatch-color {
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.rcp-check {
+    color: rgba(0, 0, 0, 0.7);
+    stroke-width: 3;
+}
+
+.rcp-swatch-label {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.rcp-swatch.active .rcp-swatch-label {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.rcp-round-num {
+    font-size: 0.52rem;
+    font-weight: 700;
+    color: var(--accent-text);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* ── History ── */
+.rcp-history {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 12px;
+}
+
+.rcp-history-title {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.rcp-history-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+.rcp-history-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.rcp-history-label {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    flex: 1;
+}
+
+.rcp-history-date {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════════════════════════════════════════
+   Revision Asterisk Markers (in editor)
+   ═══════════════════════════════════════════════ */
+
+.revision-asterisk {
+    position: absolute;
+    right: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    font-weight: 900;
+    font-family: var(--font-screenplay);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Color classes for the asterisk */
+.revision-asterisk--white { color: #f0ece4; }
+.revision-asterisk--blue { color: #60a5fa; }
+.revision-asterisk--pink { color: #f472b6; }
+.revision-asterisk--yellow { color: #fbbf24; }
+.revision-asterisk--green { color: #4ade80; }
+.revision-asterisk--goldenrod { color: #daa520; }
+.revision-asterisk--buff { color: #f0dc82; }
+.revision-asterisk--salmon { color: #fa8072; }
+.revision-asterisk--cherry { color: #de3163; }
+
+/* Subtle highlight on changed blocks during revision mode */
+.revision-highlight--white { border-right: 2px solid rgba(240, 236, 228, 0.15); }
+.revision-highlight--blue { border-right: 2px solid rgba(96, 165, 250, 0.15); }
+.revision-highlight--pink { border-right: 2px solid rgba(244, 114, 182, 0.15); }
+.revision-highlight--yellow { border-right: 2px solid rgba(251, 191, 36, 0.15); }
+.revision-highlight--green { border-right: 2px solid rgba(74, 222, 128, 0.15); }
+.revision-highlight--goldenrod { border-right: 2px solid rgba(218, 165, 32, 0.15); }
+.revision-highlight--buff { border-right: 2px solid rgba(240, 220, 130, 0.15); }
+.revision-highlight--salmon { border-right: 2px solid rgba(250, 128, 114, 0.15); }
+.revision-highlight--cherry { border-right: 2px solid rgba(222, 49, 99, 0.15); }
