@@ -22,6 +22,7 @@ import {
     Tags,
     Activity,
     GraduationCap,
+    Layers,
 } from 'lucide-react';
 import useProjectStore from '../stores/projectStore';
 import useEditorStore from '../stores/editorStore';
@@ -30,7 +31,7 @@ import TopBar from '../components/TopBar';
 import ScreenplayEditor from '../components/ScreenplayEditor/ScreenplayEditor';
 import SceneList from '../components/SceneList';
 import TheSpine from './TheSpine'; // Added TheSpine
-import BeatSheet from '../components/BeatSheet';
+import BeatBoard from '../components/BeatBoard';
 import CharacterBible from '../components/CharacterBible';
 import NotesPanel from '../components/NotesPanel';
 import KleoPanel from '../components/KleoPanel';
@@ -63,6 +64,7 @@ import '../styles/editor-workspace.css';
 const SIDEBAR_TABS = [
     { id: 'scenes', label: 'Scenes', icon: Film },
     { id: 'corkboard', label: 'Board', icon: LayoutGrid },
+    { id: 'beats', label: 'Beats', icon: Layers },
     { id: 'characters', label: 'Chars', icon: Users },
     { id: 'notes', label: 'Notes', icon: StickyNote },
     { id: 'history', label: 'History', icon: History },
@@ -199,6 +201,8 @@ export default function EditorWorkspace() {
                 return <SceneList projectId={projectId} />;
             case 'corkboard':
                 return <CorkboardView projectId={projectId} onJumpToScene={handleJumpToScene} />;
+            case 'beats':
+                return <BeatBoard projectId={projectId} />;
             case 'characters':
                 return <CharacterBible projectId={projectId} />;
             case 'notes':
